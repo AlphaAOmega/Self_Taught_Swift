@@ -49,8 +49,8 @@ enum ArithmeticExpression {
 
 indirect enum ArithmeticExpression0 {
     case number(Int)
-    case addition(ArithmeticExpression, ArithmeticExpression)
-    case multiplication(ArithmeticExpression, ArithmeticExpression)
+    case addition(ArithmeticExpression0, ArithmeticExpression0)
+    case multiplication(ArithmeticExpression0, ArithmeticExpression0)
 }
 
 
@@ -92,7 +92,7 @@ let yourCondition: Condition = .bad
 
 if myCondition >= yourCondition {
     print("제 상태가 더 좋군요")
-} else {
+} else {2
     print("당신의 상태가 더 좋군요")
 }
 // 제 상태가 더 좋군요
