@@ -196,3 +196,4 @@ enum School4: String, CaseIterable {
 
 let allCases2: [School4] = School4.allCases
 print(allCases2)
+
