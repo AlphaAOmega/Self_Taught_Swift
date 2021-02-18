@@ -12,3 +12,4 @@ enum School: Int {
 
 let school: School? = School[2]
 print(school)   // Optional(School.middle)
+ 
