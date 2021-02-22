@@ -67,6 +67,7 @@ extension Insertable {
 struct Stack<Element>: Popable {
     var items: [Element] = [Element]()
     
+    // 23-6 Stack 구조체 맵
     func map<T>(transform: (Element) -> T) -> Stack<T> {
         var transformedStack: Stack<T> = Stack<T>()
         
@@ -75,6 +76,30 @@ struct Stack<Element>: Popable {
         }
         
         return transformedStack
+    }
+    
+    // 23-8 Stack 구조체 필터
+    func filter(includeElement: (Element) -> Bool) -> Stack<Element> {
+        var filterdStack: Stack<ItemType> = Stack<ItemType>()
+        
+        for item in items {
+            if includeElement(item) {
+                filterdStack.items.append(item)
+            }
+        }
+        
+        return filterdStack
+    }
+    
+    // 23-10 Stack 구조체 리듀스
+    func reduce<T>(_ initialResult: T, nextPartialResult: (T, Element) -> T) -> T {
+        var result: T = initialResult
+        
+        for item in items {
+            result = nextPartialResult(result, item)
+        }
+        
+        return result
     }
 }
 
@@ -111,8 +136,39 @@ myStrStack.printSelf()
 
 
 // 23-7 Array 타입의 필터 사용
-let filteredItems: Array<Int> = items.filter { (item: Int) -> Bool in
-    return item % 2 == 0
-}
+let filteredItems: Array<Int> = items.filter { $0 % 2 == 0 }
 
 print(filteredItems)
+
+
+
+// 23-8 Stack 구조체의 필터 메서드
+let filteredStack: Stack<Int> = myIntStack.filter{ $0 < 5 }
+
+filteredStack.printSelf()   // [1, 2]
+
+
+
+// 23-9 Array 타입의 리듀스 사용
+let combinedItems: Int = items.reduce(0) { $0 + $1 }
+print(combinedItems)    // 6
+
+let combinedItemsDoubled: Double = items.reduce(0.0) { $0 + Double($1) }
+print(combinedItemsDoubled) // 6.0
+
+let combinedItemsString: String = items.reduce("") { $0 + "\($1)" }
+print(combinedItemsString)  // 123
+
+
+
+// 23-10 Stack 구조체의 리듀스 메서드
+let combinedInt: Int = myIntStack.reduce(100) { (result: Int, next: Int) -> Int in
+    return result + next
+}
+print(combinedInt)  // 108
+
+let combinedDouble: Double = myIntStack.reduce(100.0) { $0 + Double($1) }
+print(combinedDouble)   // 108.0
+
+let combinedString: String = myIntStack.reduce("") { $0 + "\($1)" }
+print(combinedString)
